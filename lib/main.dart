@@ -29,7 +29,7 @@ class ConfessionsInformation extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: <Widget>[
         Text(
-          'Confessions',
+          '$question',
           style: TextStyle(
             color: Colors.black,
             fontSize: 30,
