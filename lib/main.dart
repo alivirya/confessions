@@ -12,9 +12,30 @@ class MyApp extends StatelessWidget {
           title: Text('Confessions'),
         ),
         body: Center(
-          child: Text('Confessions'),
+          child: ConfessionsInformation(),
         ),
       ),
     );
+  }
+}
+
+class ConfessionsInformation extends StatelessWidget {
+  ConfessionsInformation({this.question});
+  final String question;
+
+  Widget build(BuildContext context) {
+    return Container(
+        child: Column(
+      mainAxisSize: MainAxisSize.min,
+      children: <Widget>[
+        Text(
+          'Confessions',
+          style: TextStyle(
+            color: Colors.black,
+            fontSize: 30,
+          ),
+        ),
+      ],
+    ));
   }
 }
