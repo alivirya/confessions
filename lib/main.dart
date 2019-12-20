@@ -1,3 +1,4 @@
+import 'package:confessions/questions.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -6,36 +7,58 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Welcome to Flutter',
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text('Confessions'),
+      title: 'Confessions',
+      theme: ThemeData(
+        primaryColor: Colors.black,
+      ),
+      home: HomePage(),
+    );
+  }
+}
+
+class HomePageState extends State<HomePage> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Confession'),
+      ),
+      body: Center(
+        child: new SizedBox(
+          width: 100.0,
+          height: 50.0,
+          child: new RaisedButton(
+            onPressed: _startQuestions,
+            textColor: Colors.white,
+            color: Colors.blue,
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget> [
+                new Text('Start'),
+                Icon(Icons.arrow_right)
+              ]
+            )
+          ),
         ),
-        body: Center(
-          child: ConfessionsInformation(),
-        ),
+      ),
+    );
+  }
+
+  void _startQuestions() {
+    Navigator.of(context).push(
+      MaterialPageRoute<void>(
+        builder: (BuildContext context) {
+          return Scaffold(
+            body: QuestionsPage()
+          );
+        }
       ),
     );
   }
 }
 
-class ConfessionsInformation extends StatelessWidget {
-  ConfessionsInformation({this.question});
-  final String question;
-
-  Widget build(BuildContext context) {
-    return Container(
-        child: Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Text(
-          '$question',
-          style: TextStyle(
-            color: Colors.black,
-            fontSize: 30,
-          ),
-        ),
-      ],
-    ));
-  }
+class HomePage extends StatefulWidget {
+  @override
+  HomePageState createState() => HomePageState();
 }
