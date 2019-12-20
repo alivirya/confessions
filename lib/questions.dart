@@ -2,16 +2,12 @@ import 'package:flutter/material.dart';
 
 class Questions {
   List<String> questions;
-  Questions() {
-    this.questions = [];
+  Questions(List<String> questions) {
+    this.questions = questions;
   }
 
   set question(String question) {
     this.questions.add(question);
-  }
-
-  set bulkAdd(List<String> questions) {
-    this.questions.addAll(questions);
   }
 
   List<String> get allQuestions {
@@ -45,9 +41,11 @@ class QuestionsPageState extends State<QuestionsPage> {
       "Do you think god is real, and why?",
       "Do you believe in giving people second chances, and why?",
       "What do you look for in a relationship?",
-      "What is your idea of a perfect date?"];
-    questions = Questions();
-    questions.bulkAdd = initialQuestions;
+      "What is your idea of a perfect date?",
+      "What three adjectives describe you?",
+      "Have you had your heart broken before?",
+      "What makes you nostalgic?"];
+    questions = Questions(initialQuestions);
   }
 
   Widget _buildQuestions() {
@@ -60,6 +58,8 @@ class QuestionsPageState extends State<QuestionsPage> {
         if (index < questions.length) {
           return _buildRow(questions.retrieveQuestion(index));
         }
+        // TODO: Update this so nothing is returned...? Not sure what this is in flutter.
+        return Container();
       },
     );
   }
