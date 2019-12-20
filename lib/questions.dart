@@ -6,7 +6,7 @@ class Questions {
     this.questions = questions;
   }
 
-  set question(String question) {
+  set add(String question) {
     this.questions.add(question);
   }
 
@@ -25,17 +25,50 @@ class Questions {
 
 class QuestionsPageState extends State<QuestionsPage> {
   Questions questions;
+    TextEditingController _textFieldController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Questions')
+        title: Text('Questions'),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.add), onPressed: () => _addQuestion(context)),
+        ],
       ),
       body: _buildQuestions(),
     );
   }
 
-  setupQuestions() {
+  _addQuestion(BuildContext context) async {
+    return showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          content: TextField(
+            controller: _textFieldController,
+            decoration: InputDecoration(hintText: "Question to add"),
+          ),
+          actions: <Widget>[
+            new FlatButton(
+              child: new Text("Cancel"),
+              onPressed: () {
+                Navigator.of(context).pop();
+              }
+            ),
+            new FlatButton(
+              child: new Text("Add"),
+              onPressed: () {
+                questions.add  = _textFieldController.text;
+                Navigator.of(context).pop();
+              },
+            )
+          ],
+        );
+      }
+    );
+  }
+
+  _setupQuestions() {
     List<String> initialQuestions = [
       "How would you rank the following in importance: family, career, love life?",
       "Do you think god is real, and why?",
@@ -49,22 +82,21 @@ class QuestionsPageState extends State<QuestionsPage> {
   }
 
   Widget _buildQuestions() {
-    setupQuestions();
+    _setupQuestions();
     return ListView.builder(
       padding: EdgeInsets.all(16.0),
+      itemCount: questions.length,
       itemBuilder: (context, i) {
         if (i.isOdd) return Divider();
         final index = i ~/ 2;
-        if (index < questions.length) {
-          return _buildRow(questions.retrieveQuestion(index));
-        }
-        // TODO: Update this so nothing is returned...? Not sure what this is in flutter.
-        return Container();
+
+        return _buildRow(index);
       },
     );
   }
 
-  Widget _buildRow(String question) {
+  Widget _buildRow(num index) {
+    String question = questions.retrieveQuestion(index);
     return ListTile(
       title: Text(
         question
