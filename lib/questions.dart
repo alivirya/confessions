@@ -24,8 +24,15 @@ class Questions {
 }
 
 class QuestionsPageState extends State<QuestionsPage> {
+  //Will probably have to move this to the main class? 
   Questions questions;
-    TextEditingController _textFieldController = TextEditingController();
+  TextEditingController _textFieldController = TextEditingController();
+  @override
+  void initState() {
+    super.initState();
+    _setupQuestions();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -40,7 +47,7 @@ class QuestionsPageState extends State<QuestionsPage> {
   }
 
   _addQuestion(BuildContext context) async {
-    return showDialog(
+    return await showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
@@ -65,7 +72,11 @@ class QuestionsPageState extends State<QuestionsPage> {
           ],
         );
       }
-    );
+    ).then((onValue) {
+      setState(() {
+        questions: questions;
+      });
+    });
   }
 
   _setupQuestions() {
@@ -82,10 +93,9 @@ class QuestionsPageState extends State<QuestionsPage> {
   }
 
   Widget _buildQuestions() {
-    _setupQuestions();
     return ListView.builder(
       padding: EdgeInsets.all(16.0),
-      itemCount: questions.length,
+      itemCount: questions.length * 2,
       itemBuilder: (context, i) {
         if (i.isOdd) return Divider();
         final index = i ~/ 2;
