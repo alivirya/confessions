@@ -1,3 +1,5 @@
+import "dart:math";
+
 class Questions {
   List<String> questions;
   Questions(List<String> questions) {
@@ -18,6 +20,11 @@ class Questions {
 
   String retrieveQuestion(num index) {
     return this.questions[index];
+  }
+
+  String retrieveRandomQuestion() {
+    final _random = new Random();
+    return this.questions[_random.nextInt(this.questions.length)];
   }
 }
 
