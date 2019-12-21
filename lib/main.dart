@@ -1,4 +1,4 @@
-import 'package:confessions/questions.dart';
+import 'package:confessions/questionsPage.dart';
 import 'package:flutter/material.dart';
 
 void main() => runApp(MyApp());
@@ -22,13 +22,16 @@ class HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Confession'),
+        actions: <Widget>[
+          IconButton(icon: Icon(Icons.list), onPressed: _listQuestions)
+        ],
       ),
       body: Center(
         child: new SizedBox(
           width: 100.0,
           height: 50.0,
           child: new RaisedButton(
-            onPressed: _startQuestions,
+            onPressed: _listQuestions,
             textColor: Colors.white,
             color: Colors.blue,
             child: Row(
@@ -45,15 +48,10 @@ class HomePageState extends State<HomePage> {
     );
   }
 
-  void _startQuestions() {
+  void _listQuestions() {
     Navigator.of(context).push(
       MaterialPageRoute<void>(
-        builder: (BuildContext context) {
-          return Scaffold(
-            body: QuestionsPage()
-          );
-        }
-      ),
+        builder: (BuildContext context) => QuestionsPage()),
     );
   }
 }

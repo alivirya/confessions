@@ -1,27 +1,5 @@
 import 'package:flutter/material.dart';
-
-class Questions {
-  List<String> questions;
-  Questions(List<String> questions) {
-    this.questions = questions;
-  }
-
-  set add(String question) {
-    this.questions.add(question);
-  }
-
-  List<String> get allQuestions {
-    return this.questions;
-  }
-
-  num get length {
-    return this.questions.length;
-  }
-
-  String retrieveQuestion(num index) {
-    return this.questions[index];
-  }
-}
+import 'obj/questions.dart';
 
 class QuestionsPageState extends State<QuestionsPage> {
   //Will probably have to move this to the main class? 
@@ -73,9 +51,7 @@ class QuestionsPageState extends State<QuestionsPage> {
         );
       }
     ).then((onValue) {
-      setState(() {
-        questions: questions;
-      });
+      setState(() => {questions: questions});
     });
   }
 
@@ -119,4 +95,3 @@ class QuestionsPage extends StatefulWidget {
   @override 
   QuestionsPageState createState() => QuestionsPageState();
 }
-
